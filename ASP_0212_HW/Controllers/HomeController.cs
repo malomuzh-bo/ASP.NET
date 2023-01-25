@@ -1,8 +1,8 @@
-﻿using ASP_0212.Models;
+﻿using ASP_0212_HW.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ASP_0212.Controllers
+namespace ASP_0212_HW.Controllers
 {
     public class HomeController : Controller
     {
@@ -12,6 +12,7 @@ namespace ASP_0212.Controllers
         {
             _logger = logger;
         }
+        
 
         public IActionResult Index()
         {

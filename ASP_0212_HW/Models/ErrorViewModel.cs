@@ -1,4 +1,4 @@
-namespace ASP_0212.Models
+namespace ASP_0212_HW.Models
 {
     public class ErrorViewModel
     {
