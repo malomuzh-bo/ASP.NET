@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+
+	<script>
+		async function updAuto(id, mark, model, year, color) {
+			const resp = await fetch(`/api/auto`, {
+				method: "PUT", headers: {
+					"Accept": "application/json",
+					"Content-Type": "application/json"
+				}, body: JSON.stringify({
+					Id: id, Model: model, Mark: mark, Year: year, Color: color
+				})
+			});
+			if (resp.ok) {
+				const car = await resp.json();
+				document.querySelector(`tr[data-rowid="${car.id}"]`).replaceWith(addRow(car));	
+			}
+            else {
+				const error = resp.json();
+				console.log(error);
+				console.log("Exception");
+            }
+		}
+	</script>
+</body>
+</html>

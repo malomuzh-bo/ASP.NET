@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<h1>Countries</h1>
+	<a href="/countries">View JSON</a>
+	<table id="table">
+		<thead>
+			<tr>
+				<th>Country Name</th>
+				<th>Capital</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+	<script>
+		async function getCountries() {
+			const response = await fetch("/countries", { method: "GET", headers: { "Accept": "application/json", "Content-Type": "application/json" } });
+			if (response.ok) {
+				let countries = await response.json();
+				console.log(countries);
+				for (let item of countries) {
+					table.appendChild(addRow(item));
+				}
+			}
+		}
+		getCountries();
+
+		function addRow(obj) {
+			let row = document.createElement("tr");
+			let country = document.createElement("td");
+			country.innerHTML = `${obj.countryName}`;
+			row.appendChild(country);
+
+			let capital = document.createElement("td");
+			capital.innerHTML = `${obj.capital}`;
+			row.appendChild(capital);
+
+			return row;
+		}
+	</script>
+</body>
+</html>

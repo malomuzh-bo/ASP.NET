@@ -1,0 +1,40 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+	font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+img{
+	width:70px;
+}
+.info_img {
+	width: 550px;
+	margin-top: 50px;
+}
+.info_div {
+	margin-top: 50px;
+	margin-left: 50px;
+}
+.info_div2 {
+	margin-left: 50px;
+}
+
+.info_gallery{
+	width: 400px;
+}
+.contacts{
+	margin-left: 50px;
+	margin-top: 50px;
+}

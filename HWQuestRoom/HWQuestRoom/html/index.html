@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="form">
+        <input type="hidden" name="id" id="roomId" />
+        <input type="text" name="roomTitle" id="title" />
+        <input type="file" name="roomPath" id="roomPath" />
+        <button id="add">Add</button>
+    </div>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Path</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</body>
+
+<script>
+    async function GetRooms() {
+        const response = await fetch("/api/rooms", { method: "GET", headers: { "Accept": "application/json" } });
+
+        if (response.ok) {
+            let rooms = await response.json();
+            let t = document.querySelector("#table");
+            for (let item of rooms) {
+                t.appendChild(AddRow(item));
+            }
+        }
+    }
+
+    GetRooms();
+
+    function AddRow(obj) {
+        let row = document.createElement("tr");
+        row.setAttribute("data-rowId", obj.id);
+        let title = document.createElement("td");
+        title.innerHTML = `${obj.title}`;
+        row.appendChild(title);
+        let path = document.createElement("td");
+        path.innerHTML = `${obj.path}`;
+
+        let controls = document.createElement("td");
+
+        let btnEdit = document.createElement("button");
+        btnEdit.innerHTML = "Edit";
+        btnEdit.addEventListener("click", async () => {
+            await GetByIndex(obj.id);
+        })
+
+        let btnDel = document.createElement("button");
+        btnDel.innerHTML = "Del";
+        btnDel.addEventListener("click", async () => {
+            await DelRoom(obj.id);
+        });
+
+        controls.appendChild(btnEdit); 
+        controls.appendChild(btnDel); 
+        row.appendChild(controls); 
+
+        return row;
+    }
+
+    function ClearInput() {
+        document.getElementById("roomId").value = "";
+        document.getElementById("title").value = "";
+        document.getElementById("roomPath").value = "";
+    }
+
+    document.getElementById("add").addEventListener("click", async () => {
+        let Id = document.getElementById("roomId").value;
+        let Title = document.getElementById("title").value;
+        let Path = document.getElementById("roomPath").value;
+
+        if (Id == "") {
+            await CreateRoom(Title, Path);
+        }
+        else {
+            await UpdateRoom(Id, Title, Path);
+        }
+    })
+
+    async function UpdateRoom(rid, rtitle,rpath) {
+        const response = await fetch(`/api/rooms`, {
+            method: "PUT", headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ roomId: rid, title: rtitle, roomPath: rpath })
+        });
+
+        if (response.ok) {
+            const auto = await response.json();
+            document.querySelector(`tr[data-rowid="${room.id}"]`).replaceWith(AddRow(room));
+        }
+    }
+
+    async function CreateRoom(rTitle, rPath) {
+       
+        const response = await fetch("/api/rooms", {
+            method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ title: rTitle, roomPath: rPath })
+        });
+
+        if (response.ok) {
+            let room = await response.json();
+            document.querySelector("tbody").appendChild(AddRow(room));
+            ClearInput();
+            console.log(room);
+        }
+
+    }
+
+    async function GetByIndex(id) {
+        const response = await fetch(`/api/rooms/${id}`, {
+            method: "GET", headers: { "Accept": "application/json", "Content-Type": "application/json" }
+        });
+        if (response.ok) {
+            const room = await response.json();
+
+            document.getElementById("roomId").value = room.id;
+            document.getElementById("title").value = room.title;
+            document.getElementById("roomPath").value = room.roomPath;
+        }
+        else {
+            const error = await response.json();
+            console.log(error.message);
+        }
+    }
+
+    async function DelRoom(id) {
+        const response = await fetch(`/api/rooms/${id}`, {
+            method: "DELETE", headers: { "Accept": "application/json", "Content-Type": "application/json" }
+        });
+
+        if (response.ok) {
+            document.querySelector(`tr[data-rowid="${id}"]`).remove();
+        }
+        else {
+            const error = await response.json();
+            console.log(error.message);
+        }
+    }
+</script>
+</html>

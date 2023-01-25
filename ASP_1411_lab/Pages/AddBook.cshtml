@@ -1,0 +1,30 @@
+﻿@page
+@model ASP_1411_lab.Pages.AddBookModel
+@{
+
+}
+
+<form method="POST">
+  <div class="form-group">
+        <label for="exampleInputBookName">Book name:</label>
+        <input type="text" class="form-control" name="bn" placeholder="Enter book name. . .">
+  </div>
+  <div class="form-group">
+        <label for="exampleInputAuthorName">Author name:</label>
+        <input type="text" class="form-control" name="an" placeholder="Enter author name. . .">
+  </div>
+  <div class="form-group">
+        <label for="exampleInputStyle">Style:</label>
+        <input type="text" class="form-control" name="st" placeholder="Enter style. . .">
+  </div>
+  <div class="form-group">
+        <label for="exampleInputPublisher">Publisher:</label>
+        <input type="text" class="form-control" name="pub" placeholder="Enter publisher. . .">
+  </div>
+  <div class="form-group">
+        <label for="exampleInputYear">Year:</label>
+        <input type="number" class="form-control" name="yr" placeholder="Enter year. . .">
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

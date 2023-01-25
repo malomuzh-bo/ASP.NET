@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "My lil' homie";
+}
+
+@*1*@
+<form method="GET">
+	<input type="text" name="input_name" placeholder="Some text..." />
+	<button type="submit" name="send" value="send">Send</button>
+	<br />
+</form>
+<p id="par">@ViewData["p"]</p>
+<br />
+<a href="Task2">Enter to 2 task</a>

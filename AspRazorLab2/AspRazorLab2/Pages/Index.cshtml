@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<form method="post" asp-page=""> 
+    <label>
+        <input name="prod" placeholder="Name" class="form-control" type="text" />
+        <br />
+        <input name="price" placeholder="Price" class="form-control" type="number" /> <br />
+        <button type="submit" class="btn btn-primary">Add</button>
+    </label>
+    
+</form>
+<div id="add_prod">
+    <ul>
+        @foreach(var item in Model.product){
+            <li>
+                @Model.getProduct(item);
+            </li>
+        }
+    </ul>
+</div>
+<hr />
+<form method="post" asp-page-handler="Search">
+    <label>
+        <input name="search" type="text" class="form-control" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </label>
+</form>
+<div id="show_prod">
+    <ul>
+        @foreach(var item in Model.product)
+        {
+            if(Model.SearchProd(item)){
+                <li>
+                    @item.ToString();
+                </li>
+            }
+        }
+    </ul>
+</div>
+<hr />
+<form method="post" asp-page-handler="NextPage">
+    <button type="submit">Categories</button>
+</form>

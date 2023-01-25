@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<h1>Restaurants</h1>
+	<table id="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+	<script>
+		async function loadRests() {
+			const response = await fetch("/restaurant", {
+				method: "GET",
+				headers: { "Accept": "application/json" }
+			});
+
+			if (response.ok) {
+				let rests = await response.json();
+
+				console.log(rests);
+
+				for (let item of rests) {
+					table.appendChild(addRow(item));
+				}
+			}
+		}
+		loadRests();
+
+		function addRow(obj) {
+			let row = document.createElement("tr");
+
+            let name = document.createElement("td");
+            name.innerHTML = `${obj.name}`;
+            row.appendChild(name);
+
+            let desc = document.createElement("td");
+            desc.innerHTML = `${obj.description}`;
+            row.appendChild(desc);
+
+			return row;
+		}
+
+	</script>
+</body>
+</html>

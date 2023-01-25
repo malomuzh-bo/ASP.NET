@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "AddRoom";
+}
+<form method="post" asp-action="Add" enctype="multipart/form-data">
+    <div style="display:flex;">
+        Add name:<input name="Name" type="text"/><br />
+        Add Role:<input name="userId" type="number" /><br />
+        Add Description:<textarea name="description"></textarea><br />
+        <button type="submit">Add</button>
+    </div>
+</form>

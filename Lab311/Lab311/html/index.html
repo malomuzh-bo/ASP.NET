@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <div>
+        <input type="hidden" name="id" id="autoId" />
+        <label for="mark">Mark</label>
+        <input type="text" name="mark" id="mark" />
+        <label for="model">Model</label>
+        <input type="text" name="model" id="model" />
+        <label for="color">Color</label>
+        <input type="text" name="color" id="color" />
+        <label for="year">Year</label>
+        <input type="number" name="year" id="year" />
+        <button id="save">Save</button>
+    </div>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Mark</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>  
+    </table>
+
+    <script>
+        async function GetAutos() {
+            const response = await fetch("/api/autos", { method: "GET", headers: { "Accept": "application/json" } });
+            if (response.ok) {
+                let autos = await response.json();
+                const container = document.querySelector("tbody");
+                for (let el of autos) {
+                    table.appendChild(AddRow(el));
+                }
+            }
+        }
+        GetAutos();
+        function AddRow(obj) {
+            let row = document.createElement("tr");
+            row.setAttribute("data-rowId", obj.id);
+            let tdMark = document.createElement("td");
+            tdMark.innerHTML = `${obj.mark}`;
+            row.appendChild(tdMark);
+            let tdModel = document.createElement("td");
+            tdModel.innerHTML = `${obj.model}`;
+            row.appendChild(tdModel);
+            let tdColor = document.createElement("td");
+            tdColor.innerHTML = `${obj.color}`;
+            row.appendChild(tdColor);
+            let tdYear = document.createElement("td");
+            tdYear.innerHTML = `${obj.year}`;
+            row.appendChild(tdYear);
+
+            let controls = document.createElement("td");
+
+            let buttonEdit = document.createElement("button");
+            buttonEdit.innerText = "Edit";
+            buttonEdit.addEventListener("click", async () => {
+                await getAuto(obj.id);
+            })
+
+            //row.appendChild(buttonEdit);
+            let buttonDelete = document.createElement("button");
+            buttonDelete.innerText = "Delete";
+            buttonDelete.addEventListener("click", async () => {
+                await delAuto(obj.id);
+            })
+            //row.appendChild(buttonDelete);
+            controls.appendChild(buttonEdit);
+            controls.appendChild(buttonDelete);
+            row.appendChild(controls);
+
+
+            return row;
+        }
+
+        document.getElementById("save").addEventListener("click", async () => {
+            let autoId = document.getElementById("autoId").value;
+            let autoMark = document.getElementById("mark").value;
+            let autoModel = document.getElementById("model").value;
+            let autoColor = document.getElementById("color").value;
+            let autoYear = document.getElementById("year").value;
+
+            if (autoId == "") {
+                await CreateAuto(autoMark, autoModel, autoColor, autoYear);
+            }
+        })
+
+        async function CreateAuto(autoMark, autoModel, autoColor, autoYear) {
+            const response = await fetch("/api/autos", {
+                method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({ Model: autoModel, Mark: autoMark, Color: autoColor, Year: autoYear })
+            });
+
+            if (response.ok) {
+                let auto = await response.json();
+                document.querySelector("tbody").appendChild(AddRow(auto));
+            }
+        }
+    </script>
+</body>
+</html>

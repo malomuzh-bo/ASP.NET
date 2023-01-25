@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Authentication";
+}
+<style>
+
+</style>
+<div class="container">
+    <h1>TWO-FACTOR AUTHENTICATION</h1>
+    <form method="post" asp-action="checking">
+        <div class="form__group form__pincode">
+            @*<input hidden name="correct" value="@ViewData["key"]" />*@
+            <input hidden name="user" value="@ViewData["user"]" />
+            <input name="key" required="" maxlength="6" pattern="[0-9]+" type="text" tabindex="1" placeholder="6-digit code" id="pin">
+        </div>
+        <div class="form__buttons">
+            <button type="submit" class="button button--primary">Submit</button>
+        </div>
+    </form>
+    
+</div>

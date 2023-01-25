@@ -1,0 +1,62 @@
+﻿@page "{id:int}"
+@model ASP_1711.Pages.RoomInfoModel
+@{
+    var room = Model!.QuestRoom;
+    var s_number = "";
+    var s_email = "";
+    foreach (var number in Model.PhoneNums)
+    {
+        s_number += $"{number.PhoneNumber}; ";
+    }
+    foreach (var email in Model.Emails)
+    {
+        s_email += $"{email.EmailName}; ";
+    }
+}
+
+<div class="d-flex">
+	<div>
+		<img class="info_img" src="@room.LogoPath" alt="nologo(@room.Name)"/>
+	</div>
+	<div>
+		<h3 class="contacts">@room.Name by @room.Company</h3>
+		<h4 style="margin-left: 50px"><b>@room.Description</b></h4>
+		<div class="info_div"><b>Passing time: </b> @room.TransitTime minutes</div>
+		<div class="info_div2"><b>Rating: </b>@room.Rating</div>
+		<div class="info_div2"><b>Difficulty: </b>@room.HardLevel</div>
+		<div class="info_div2"><b>Horror level: </b>@room.ScaryLevel</div>
+		<div class="contacts">
+			<b>Players: </b> @room.MinPlayers - @room.MaxPlayers
+			<br />
+			<b>Min age: </b>
+			@room.MinYear
+		</div>
+		<div class="contacts">
+			<b>Contacts: </b>
+			<div class="ms-5">Address: @room.Address</div>
+			<div class="ms-5">Phones: @s_number</div>
+			<div class="ms-5">Emails: @s_email</div>
+		</div>
+	</div>
+</div>
+@if (Model.PicPaths.Count > 0)
+{
+<div id="carouselExampleControls" class="carousel slide col-md-4" data-bs-ride="carousel">
+	<div class="carousel-inner">
+			@for (int i = 0; i < Model.PicPaths.Count; i++)
+		{
+			<div class="carousel-item @(i==0?"active":"")">
+					<img src="@Model.PicPaths[i].Path" class="d-block" style="width:400px;" alt="noimage(@room.Name)">
+			</div>
+		}
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+}

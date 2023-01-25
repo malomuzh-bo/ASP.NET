@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Malbi Rooms";
+}
+@*@if (Model.Rooms.Count > 0)
+{
+	<form method="post" asp-page-handler="Filter" class="mb-5">
+	  <div class="d-flex mb-1">
+		<label>
+			Rating from
+		<input class="ms-2 me-2" style="width:100px" type="number" min="1" max="5" plaseholder="Min rating..." name="minRating"/>
+			to
+		<input class="ms-2 me-2" style="width:100px" type="number" min="1" max="5" plaseholder="Max rating..." name="maxRating" />
+		</label>
+	  </div>
+		<div class="d-flex mb-1">
+		<label>
+			Fear from
+		<input class="ms-4 me-2" style="width:100px" type="number" min="1" max="5" plaseholder="Min fear..." name="minFear"/>
+			to
+		<input class="ms-2 me-2" style="width:100px" type="number" min="1" max="5" plaseholder="Max fear..." name="maxFear" />
+		</label>
+	  </div>
+	   <div class="d-flex mb-1">
+		<label>
+			People from
+		<input class="ms-2 me-2" style="width:100px" type="number" min="1" max="100" plaseholder="Min people..." name="minPeople"/>
+			to
+		<input class="ms-2 me-2" style="width:100px" type="number" min="1" max="100" plaseholder="Max peolpe..." name="maxPeople" />
+		</label>
+	  </div>
+  <button class="btn btn-outline-info">Filter</button>
+  <button class="btn btn-outline-secondary" asp-page-handler="ClearFilter">Clear</button>
+  </form>
+}*@
+<div class="mycontainer col-md-9">
+	@foreach (var room in Model.FiltRooms)
+	{
+	  <div class="card" style="width: 18rem">
+		<img src="@room.LogoPath" class="card-img-top" alt="no_logo">
+		<div class="card-body">
+		  <h5 class="card-title">@room.Name</h5>
+		  <p class="card-text">@room.Description</p>
+		  <div class="d-flex flex-row">
+			<a asp-page="RoomInfo" asp-route-id="@room.Id" class="btn btn-warning">Details</a>
+		  </div>
+		</div>
+	  </div>
+	}
+</div>

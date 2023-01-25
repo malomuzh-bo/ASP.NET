@@ -1,0 +1,67 @@
+﻿@page
+@model ASP_1011.Pages.SecondPageModel
+@{
+}
+<form method="post" asp-page="">
+    <label>
+        <input type="text" placeholder="Category name..." name="category" />
+        <button type="submit">Add category</button>
+    </label>
+</form>
+
+<div>
+    <ul>
+        @foreach (var item in Model.Categories)
+        {
+            <li>
+                @Model.getCategory(item);
+            </li>
+        }
+    </ul>
+</div>
+
+<br />
+<hr />
+<br />
+
+<form method="post" asp-page-handler="AddProduct">
+    <select name="sel_category">
+        <option value="@null" selected>...</option>
+        @foreach (var item in Model.Categories)
+        {
+            <option value="@item.CategoryName">@item.CategoryName</option>
+        }
+    </select>
+</form>
+
+<div>
+    <h1>Products:</h1>
+    <br />
+    @foreach (var item in Model.Products)
+    {
+        <label>@item.ToString() <button onclick="@Model.AddProdToCategory">Add product</button></label>
+    }
+</div>
+
+<br />
+<hr />
+<br />
+
+<form method="post" asp-page-handler="Search">
+    <input name="search" type="text" />
+    <button type="submit">Search</button>
+</form>
+
+<div>
+    <ul>
+        @foreach (var item in Model.Categories)
+        {
+            if (Model.searchCategory(item))
+            {
+                <li>
+                    @item.ToString();
+                </li>
+            }
+        }
+    </ul>
+</div>

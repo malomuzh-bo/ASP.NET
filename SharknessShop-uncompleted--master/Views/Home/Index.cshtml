@@ -1,0 +1,131 @@
+﻿@{
+	ViewData["Title"] = "Sharkness";
+	Layout = "_Layout";
+}
+
+@model List<Product>
+<style>
+	.cardik{
+		width: 100%;
+	}
+	body{
+		min-width: 770px;
+	}
+</style>
+
+@*одразу напишу. "Для дітей" будуть такі самі годинники, як і преміум клас, як і для дорослих і т.д.*@
+<body>
+	<div class="container my_cont">
+		
+	@*<div>
+		<p class="ath_p">Gaining momentum</p>
+		<a class="navbar-brand" asp-action="Trand"><img class="arrow" src="~/Images/arrow_right.png" /></a>
+		<br />
+		<br />
+		<br />
+	</div>
+	<div class="all_cards">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+		@foreach (var item in Model)
+		{
+			<a asp-action="Information" asp-controller="Home" asp-route-id="@item.Id">
+				<div class="col">
+					<div class="card h-100">
+						<img src="@((ViewData["Photos"] as List<ProductPic>).Where(q => q.ProductId == item.Id).First().PathName)" class="card-img-top cardik" alt="...">
+						<div class="card-body">
+							<h5 class="card-title navbar-brand">@item.Name</h5>
+							<p class="card-text navbar-brand">@item.Info</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		}
+		</div>
+	</div>*@
+		<div class="mycontainer">
+				<rectangle class="back">
+					<p class="un_back">Choose quality watches here</p>
+					<a class="navbar-brand in_back" asp-action="Premium">Details ></a>
+				</rectangle>
+				<div class="row">
+					<div class="row">
+						<p class="text-center">Don't have an account yet? <a asp-action="Registration">Sign up</a></p>
+					</div>
+					<div class="d-flex">
+						<p class="ath_p">For kids</p>
+						<a class="ms-3" asp-action="ForKids"><img class="arrow" src="~/Images/arrow_right.png" /></a>
+					</div>
+				</div>
+				<div class="row row-cols-1 row-cols-md-3 g-4">
+					@foreach (var item in Model)
+					{
+					<a asp-action="Information" asp-controller="Home" asp-route-id="@item.Id">
+						<div class="col">
+							<div class="card h-100">
+								<img src="@((ViewData["Photos"] as List<ProductPic>).Where(q => q.ProductId == item.Id).First().PathName)" class="card-img-top cardik" alt="...">
+								<div class="card-body">
+									<h5 class="card-title navbar-brand">@item.Name</h5>
+									<p class="card-text navbar-brand">@item.Info</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					}
+				</div>
+			</div>
+		</div>
+
+	
+</body>
+
+@section Scripts{
+	<script>
+		function ToCart(id) {
+			var amount = +document.getElementById(id).value;
+			var obj = { Id: id, Amount: amount };
+
+			var cart = getCookie("cart");
+			if (cart != undefined) {
+				cart = JSON.parse(cart);
+				cart.push(obj);
+			}
+			else {
+				cart = [];
+				cart.push(obj);
+			}
+			var str = JSON.stringify(cart);
+			setCookie("cart", str, { "max-age": 3600 * 3 });
+		}
+		//get
+		function getCookie(name) {
+			let matches = document.cookie.match(
+				new RegExp(
+					"(?:^|; )" +
+					name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+					"=([^;]*)"
+				)
+			);
+			return matches ? decodeURIComponent(matches[1]) : undefined;
+		}
+		//set
+		function setCookie(name, value, options = {}) {
+			options = {
+				path: "/",
+				// при необхідності додайте інші значення за замовченням
+				...options,
+			};
+			if (options.expires instanceof Date) {
+				options.expires = options.expires.toUTCString();
+			}
+			let updCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+			for (let optionKey in options) {
+				updCookie += "; " + optionKey;
+				let optionValue = options[optionKey];
+				if (optionValue !== true) {
+					updCookie += "=" + optionValue;
+				}
+			}
+			document.cookie = updCookie;
+		}
+	</script>
+}

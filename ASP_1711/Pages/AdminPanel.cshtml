@@ -1,0 +1,60 @@
+﻿@page
+@model ASP_1711.Pages.AdminPanelModel
+@{
+}
+
+<p><a asp-page="Create">Create room</a></p>
+<table class="table table-hover">
+	<thead>
+		<th>
+		<td>#</td>
+		<td>Logo</td>
+		<td>Name</td>
+		<td>Pass time</td>
+		<td>Players</td>
+		<td>Description</td>
+		<td>Parametres</td>
+		<td>Manage</td>
+		</th>
+	</thead>
+	<tbody>
+		@if (Model.QuestRooms != null)
+		{
+			for (int i = 0; i < Model.QuestRooms.Count; i++)
+		{
+			var item = Model.QuestRooms[i];
+			<tr>
+				<td></td>
+				<td>@(i + 1)</td>
+					<td><img src="@item.LogoPath" alt="noLogo(@item.Name)"></img></td>
+					<td>@item.Name</td>
+					<td>@item.TransitTime min</td>
+				<td>
+					<div class="d-flex flex-column">
+						<span><b>Age: </b>@item.MinYear </span>
+						<span><b>Number: </b>@item.MinPlayers - @item.MaxPlayers</span>
+					</div>
+				</td>
+					<td class="text-wrap">@item.Description</td>
+				<td>
+					<div class="d-flex flex-column">
+						<span><b>Rating: </b>@item.Rating</span>
+						<span><b>Scary level: </b>@item.ScaryLevel</span>
+						<span><b>Difficulty: </b>@item.HardLevel</span>
+					</div>
+				</td>
+				<td>
+					<div class="d-flex flex-row">
+						<form method="get" asp-page="EditRoom" asp-route-id="@item.Id">
+							<button class="btn btn-outline-warning">Edit</button>
+						</form>
+						<form method="post" asp-page-handler="Delete" asp-route-id="@item.Id">
+							<button class="btn btn-outline-danger">Delete</button>
+						</form>
+					</div>
+				</td>
+			</tr>
+		}
+		}
+	</tbody>
+</table>

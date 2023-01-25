@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "ShowRoom";
+}
+@model IEnumerable<VideoConference_Asp_MVC.Models.Rooms>
+<div style="display:flex; border: 1px solid black; margin:10px; padding:10px;">
+
+
+    @if (Model != null)
+    {
+        @foreach (VideoConference_Asp_MVC.Models.Rooms item in Model)
+        {
+            <div style="margin:10px; padding:10px;">
+                <p>Conference Name: @item.Name</p>
+                <p>Conference Description: @item.Description</p>
+            </div>
+        }
+    }
+</div>

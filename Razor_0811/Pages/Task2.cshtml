@@ -1,0 +1,17 @@
+﻿@page
+@model Razor_0811.Pages.AboutModel
+@{
+	ViewData["Title"] = "My lil' homie";
+}
+
+<form method="GET">
+	<input type="text" name="input_name" placeholder="Enter country: " />
+	<button type="submit" name="send" value="send">Search</button>
+	<br />
+	<ul>
+		@foreach (string item in Model.countries)
+		{
+			<li>@item</li>
+		}
+	</ul>
+</form>

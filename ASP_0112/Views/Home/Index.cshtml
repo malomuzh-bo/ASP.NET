@@ -1,0 +1,30 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<Result>
+
+<form method="post">
+	<div class="d-flex" id="decimalInp">
+		<input name="number" type="text" placeholder="decimal fraction..." />
+	</div>
+	<select name="operation">
+		<option value="+">+</option>
+		<option value="-">-</option>
+		<option value="*">*</option>
+		<option value="/">/</option>
+	</select>
+	<div class="d-flex" id="simpleInp">
+		<input name="whole" type="number" placeholder="whole..." />
+		<input name="numer" type="number" placeholder="numerator..." />
+		<input name="denum" type="number" placeholder="denumerator..." />
+	</div>
+	<button class="btn btn-outline-warning">Send</button>
+</form>
+
+@if (Model != null)
+{
+	foreach (var res in Model)
+	{
+		<p>@res.ToString()</p>
+	}
+}

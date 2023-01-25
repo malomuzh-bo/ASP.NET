@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@{
+	ViewData["Title"] = "Home page";
+}
+@if (Model.Message == null)
+{
+	<form method="post">
+		<input type="text" name="email" placeholder="Email..."/>
+		<br />
+		<input type="checkbox" name="cb" value="Subscribe"/>
+		<label for="cb">Subscribe</label>
+		<br />
+		<button type="submit" name="send" value="send">Send</button>
+	</form>
+}
+else
+{   
+	<p>@Model.Message</p>
+}

@@ -1,0 +1,133 @@
+﻿@page "{id:int}"
+@model ASP_1711.Pages.EditRoomModel
+@{
+}
+
+<form class="row g-3 needs-validation" method="post" enctype="multipart/form-data" novalidate>
+	<div class="col-md-5">
+		<label for="validationCustom01" class="form-label">The company</label>
+		<input type="text" hidden asp-for="QuestRoom!.Id" />
+		<input type="text" asp-for="QuestRoom!.Company" class="form-control" required>
+		<div class="valid-feedback">
+			Correct
+		</div>
+	</div>
+	<div class="col-md-5">
+		<label for="validationCustom01" class="form-label">Name of room</label>
+		<input type="text" asp-for="QuestRoom!.Name" class="form-control" required>
+		<div class="valid-feedback">
+			Correct
+		</div>
+	</div>
+	<div class="col-md-2">
+		<label for="validationCustom02" class="form-label">Pass time</label>
+		<input type="number" asp-for="QuestRoom!.TransitTime" class="form-control" min="2" max="180" required>
+		<div class="valid-feedback">
+			Correct
+		</div>
+	</div>
+	<div class="row">
+		<label for="validationTextarea" class="form-label">Description</label>
+		<textarea class="form-control" asp-for=QuestRoom!.Description id="validationTextarea" placeholder="Description..." required></textarea>
+		<div class="invalid-feedback">
+			Recheck the entered data
+	</div>
+	</div>
+	<div class="col-md-6">
+		<label for="validationCustom01" class="form-label">Address</label>
+		<input type="text" asp-for="QuestRoom!.Address" class="form-control" required>
+		<div class="valid-feedback">
+			Correct
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<label for="validationCustomUsername" class="form-label">Player`s quantity</label>
+		<div class="input-group has-validation d-flex flex-row">
+			<input type="number" asp-for="QuestRoom!.MinPlayers" class="form-control me-3" aria-describedby="inputGroupPrepend" id="minPlayers" min="1" placeholder="Min..." required>
+			<input type="number" asp-for="QuestRoom!.MaxPlayers" class="form-control" aria-describedby="inputGroupPrepend" id="maxPlayers" min="1" placeholder="Max..." required>
+			<div class="invalid-feedback">
+				Recheck the entered data
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<label for="validationCustom03" class="form-label">Minimum player`s age</label>
+		<input type="number" asp-for="QuestRoom!.MinYear" class="form-control" min="6" max="65" required>
+		<div class="invalid-feedback">
+			Recheck the entered data
+		</div>
+	</div>
+	<div class="col-md-4">
+		<label for="validationCustom04" class="form-label">Rating</label>
+		<select class="form-select" asp-for="QuestRoom!.Rating" required>
+			@for (int i = 0; i < 5; i++)
+			{
+				<option value="@(i+1)">@(i + 1)</option>
+			}
+		</select>
+		<div class="invalid-feedback">
+			Recheck the entered data
+		</div>
+	</div>
+	<div class="col-md-4">
+		<label for="validationCustom04" class="form-label">Difficulty</label>
+		<select class="form-select" asp-for="QuestRoom!.HardLevel" required>
+			@for (int i = 0; i < 5; i++)
+			{
+				<option value="@(i + 1)">@(i + 1)</option>
+			}
+		</select>
+		<div class="invalid-feedback">
+			Recheck the entered data
+		</div>
+	</div>
+	<div class="col-md-4">
+		<label for="validationCustom04" class="form-label">Horror level</label>
+		<select class="form-select" asp-for="QuestRoom!.ScaryLevel" required>
+			@for (int i = 0; i < 5; i++)
+			{
+				<option value="@(i + 1)">@(i + 1)</option>
+			}
+		</select>
+		<div class="invalid-feedback">
+			Recheck the entered data
+		</div>
+	</div>
+	<div class="col-md-6">
+		<label for="validationCustom04" class="form-label">Label photo</label>
+		<input type="file" asp-for="QuestRoom!.LogoPath" class="form-control" aria-label="file example">
+	</div>
+	<div class="row mt-5">
+		<button class="btn btn-outline-success" type="submit">Submit</button>
+	</div>
+</form>
+
+
+@section Scripts{
+	<script>
+		(() => {
+			'use strict'
+			const forms = document.querySelectorAll('.needs-validation')
+			Array.from(forms).forEach(form => {
+				form.addEventListener('submit', ev => {
+					if (!form.checkValidity()) {
+						ev.preventDefault()
+						ev.stopPropagation()
+					}
+					form.classList.add('was-validated')
+				}, false)
+			})
+		})()
+		let minPl = document.querySelector("#minPlayers");
+		let maxPl = document.querySelector("#maxPlayers");
+		maxPl.addEventListener("change", () => {
+			maxPl.min = minPl.value;
+		})
+		minPl.addEventListener("change", () => {
+			maxPl.min = minPl.value;
+			if (maxPl.value < maxPl.min)
+				maxPl.value = maxPl.min;
+		})
+	</script>
+}

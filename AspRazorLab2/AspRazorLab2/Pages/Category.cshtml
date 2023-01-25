@@ -1,0 +1,56 @@
+﻿@page
+@model AspRazorLab2.Pages.CategoryModel
+@{
+    ViewData["Title"] = "Category";
+}
+<form method="post" asp-page="">
+    <label>
+        <input type="text" placeholder="Name" name="category" class="form-control" />
+        <br />
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </label>
+</form>
+<div>
+    <ul>
+        @foreach(var item in Model.Categories){
+            <li>
+                @Model.getCategory(item);
+            </li>
+        }
+    </ul>
+</div>
+<hr />
+<form method="post" asp-page-handler="AddProd">
+    <select name="selectedcat">
+        <option value="@null" selected>Select</option>
+        @foreach(var item in Model.Categories){
+            <option value="@item.CategoryName">@item.CategoryName</option>
+        }
+    </select>
+</form>
+<div>
+        <h1>Products:</h1>
+        <br />
+        @foreach (var item in Model.Products)
+        {
+            <label>@item.ToString() <button onclick="@Model.AddProdToCat">Add</button></label>
+        }
+    </div>
+<hr />
+<form method="post" asp-page-handler="Search">
+    <input name="search" type="text" class="form-control" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<div>
+    <ul>
+        @foreach (var item in Model.Categories)
+        {
+            if (Model.SearchCategory(item))
+            {
+                <li>
+                    @item.ToString();
+                </li>
+            }
+        }
+    </ul>
+</div>

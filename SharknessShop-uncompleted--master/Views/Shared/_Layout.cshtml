@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3443/3443338.png">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - SharknessShop</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/SharknessShop.styles.css" asp-append-version="true" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+</head>
+<body>
+	<header class="position-fixed myheader">
+        <div class="container text-center">
+			<div class="row">
+				<div class="col">
+					<a class="navbar-brand" asp-action="Index"><img class="icon" src="~/Images/watch.png" /></a>
+				</div>
+				<div class="col d-flex flex-row justify-content-center align-items-center">
+					<a class="navbar-brand" asp-action="Trand">Trand</a>
+					<a class="navbar-brand" asp-action="ForKids">For kids</a>
+					<a class="navbar-brand" asp-action="ForAdults">For adults</a>
+					<a class="navbar-brand" asp-action="Premium">Premium</a>
+					@*<a class="navbar-brand" href="tel:380968984183"><img src="~/Photos/1.jpg" /></a>*@
+				</div>
+
+                <div class="col d-flex flex-row justify-content-center align-items-center">
+                    <form class="search">
+                        <div class="search__wrapper">
+                            <input type="text" name="" placeholder="Search for..." class="search__field">
+                            <button type="submit" class="fa fa-search search__icon"></button>
+                        </div>
+                    </form>
+                    <a class="navbar-brand" asp-action="Cart"><img class="cart" src="~/Images/cart.png" /></a>
+				</div>
+			</div>
+		</div>
+	</header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+	<footer class="text-center text-white" style="background-color: #f1f1f1;">
+  <!-- Grid container -->
+  <div class="container pt-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="https://twitter.com/malomuzh_bo"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="https://www.google.com.ua/"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="https://www.instagram.com/malomuzh_bo/"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Github -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="https://github.com/malomuzh-bo"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Sharkness Shop, Inc.
+  </div>
+  <!-- Copyright -->
+</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
